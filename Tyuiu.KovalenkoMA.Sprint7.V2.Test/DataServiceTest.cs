@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using Tyuiu.KovalenkoMA.Sprint7.V2.Lib;
 
 namespace Tyuiu.KovalenkoMA.Sprint7.V2.Test
@@ -13,6 +14,11 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Test
         public void TestLoadFromFile_CheckFileExists()
         {
             DataService ds = new DataService();
+
+            if (!File.Exists(testFilePath))
+            {
+                Assert.Fail($"Файл не найден: {testFilePath}");
+            }
 
             try
             {
@@ -58,7 +64,10 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Test
                     $"Не совпадает капитал записи {i}");
             }
 
-            System.IO.File.Delete(tempFile);
+            if (File.Exists(tempFile))
+            {
+                File.Delete(tempFile);
+            }
         }
     }
 }
