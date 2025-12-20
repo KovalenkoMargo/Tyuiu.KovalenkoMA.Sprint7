@@ -2,6 +2,6 @@
 {
     public class DataService
     {
-        private string ownersFile = "Owners.csv";
+       
     }
 }
