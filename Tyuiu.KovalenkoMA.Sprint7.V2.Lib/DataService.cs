@@ -70,8 +70,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             return result;
         }
 
-
-
         public bool SaveToFile(string filePath, Owner[] ownersToSave, out string errorMessage)
         {
             errorMessage = "";
@@ -96,7 +94,8 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             }
         }
 
-        
+
+
         public decimal GetTotalCapital(Owner[] owners)
         {
             decimal total = 0;
@@ -144,27 +143,41 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             return max;
         }
 
-   
-        public Owner[] SearchOwners(Owner[] owners, string searchTerm)
+
+
+
+        public Owner[] SearchOwners(Owner[] owners, string searchTerm, string searchField = "FullName")
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return owners;
 
-   
+
+            bool IsMatch(Owner owner, string term, string field)
+            {
+                switch (field.ToLower())
+                {
+                    case "fullname": return owner.FullName.ToLower().Contains(term.ToLower());
+                    case "address": return owner.Address.ToLower().Contains(term.ToLower());
+                    case "phone": return owner.Phone.ToLower().Contains(term.ToLower());
+                    case "id": return owner.Id.ToString().Contains(term);
+                    case "capital": return owner.Capital.ToString().Contains(term);
+                    default: return owner.FullName.ToLower().Contains(term.ToLower());
+                }
+            }
+
             int count = 0;
             for (int i = 0; i < owners.Length; i++)
             {
-                if (owners[i].FullName.ToLower().Contains(searchTerm.ToLower()))
+                if (IsMatch(owners[i], searchTerm, searchField))
                     count++;
             }
 
-      
             Owner[] result = new Owner[count];
             int index = 0;
 
             for (int i = 0; i < owners.Length; i++)
             {
-                if (owners[i].FullName.ToLower().Contains(searchTerm.ToLower()))
+                if (IsMatch(owners[i], searchTerm, searchField))
                 {
                     result[index] = owners[i];
                     index++;
@@ -174,24 +187,23 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             return result;
         }
 
-       
+
+
+
         public Owner[] SortOwnersByCapital(Owner[] owners)
         {
-          
             Owner[] sorted = new Owner[owners.Length];
             for (int i = 0; i < owners.Length; i++)
             {
                 sorted[i] = owners[i];
             }
 
-         
             for (int i = 0; i < sorted.Length - 1; i++)
             {
                 for (int j = 0; j < sorted.Length - 1 - i; j++)
                 {
                     if (sorted[j].Capital > sorted[j + 1].Capital)
                     {
-                        
                         Owner temp = sorted[j];
                         sorted[j] = sorted[j + 1];
                         sorted[j + 1] = temp;
@@ -200,6 +212,45 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             }
 
             return sorted;
+        }
+
+
+
+        public Owner[] FilterByCapitalRange(Owner[] owners, decimal min, decimal max)
+        {
+            if (owners == null || owners.Length == 0)
+            {
+                return new Owner[0];
+            }
+
+            if (min > max)
+            {
+                decimal temp = min;
+                min = max;
+                max = temp;
+            }
+
+            int count = 0;
+            for (int i = 0; i < owners.Length; i++)
+            {
+                if (owners[i].Capital >= min && owners[i].Capital <= max)
+                {
+                    count++;
+                }
+            }
+
+            Owner[] filteredOwners = new Owner[count];
+
+            int index = 0;
+            for (int i = 0; i < owners.Length; i++)
+            {
+                if (owners[i].Capital >= min && owners[i].Capital <= max)
+                {
+                    filteredOwners[index] = owners[i];
+                    index++;
+                }
+            }
+            return filteredOwners;
         }
     }
 }
