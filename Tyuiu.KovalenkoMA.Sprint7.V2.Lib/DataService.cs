@@ -61,7 +61,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
                     Console.WriteLine($"Ошибка в строке {i + 1}: {ex.Message}");
                 }
             }
-
             Owner[] result = new Owner[count];
             for (int i = 0; i < count; i++)
             {
@@ -70,6 +69,8 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
 
             return result;
         }
+
+
 
         public bool SaveToFile(string filePath, Owner[] ownersToSave, out string errorMessage)
         {
@@ -95,6 +96,7 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             }
         }
 
+        
         public decimal GetTotalCapital(Owner[] owners)
         {
             decimal total = 0;
@@ -142,13 +144,13 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             return max;
         }
 
-
-
+   
         public Owner[] SearchOwners(Owner[] owners, string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return owners;
 
+   
             int count = 0;
             for (int i = 0; i < owners.Length; i++)
             {
@@ -156,6 +158,7 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
                     count++;
             }
 
+      
             Owner[] result = new Owner[count];
             int index = 0;
 
@@ -171,23 +174,24 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
             return result;
         }
 
-
-
-
+       
         public Owner[] SortOwnersByCapital(Owner[] owners)
         {
+          
             Owner[] sorted = new Owner[owners.Length];
             for (int i = 0; i < owners.Length; i++)
             {
                 sorted[i] = owners[i];
             }
 
+         
             for (int i = 0; i < sorted.Length - 1; i++)
             {
                 for (int j = 0; j < sorted.Length - 1 - i; j++)
                 {
                     if (sorted[j].Capital > sorted[j + 1].Capital)
                     {
+                        
                         Owner temp = sorted[j];
                         sorted[j] = sorted[j + 1];
                         sorted[j + 1] = temp;
