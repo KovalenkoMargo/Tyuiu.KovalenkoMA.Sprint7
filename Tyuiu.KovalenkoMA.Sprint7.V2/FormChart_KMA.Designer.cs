@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             chartCapital_КМА = new System.Windows.Forms.DataVisualization.Charting.Chart();
             buttonCloseChart_KMA = new Button();
             ((System.ComponentModel.ISupportInitialize)chartCapital_КМА).BeginInit();
@@ -38,17 +36,11 @@
             // 
             // chartCapital_КМА
             // 
-            chartArea2.Name = "ChartArea1";
-            chartCapital_КМА.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            chartCapital_КМА.ChartAreas.Add(chartArea1);
             chartCapital_КМА.Dock = DockStyle.Fill;
-            legend2.Name = "Legend1";
-            chartCapital_КМА.Legends.Add(legend2);
             chartCapital_КМА.Location = new Point(0, 0);
             chartCapital_КМА.Name = "chartCapital_КМА";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            chartCapital_КМА.Series.Add(series2);
             chartCapital_КМА.Size = new Size(800, 450);
             chartCapital_КМА.TabIndex = 0;
             // 
@@ -61,6 +53,7 @@
             buttonCloseChart_KMA.TabIndex = 1;
             buttonCloseChart_KMA.Text = "Закрыть";
             buttonCloseChart_KMA.UseVisualStyleBackColor = true;
+            buttonCloseChart_KMA.Click += buttonCloseChart_KMA_Click;
             // 
             // FormChart_KMA
             // 
@@ -70,7 +63,7 @@
             Controls.Add(buttonCloseChart_KMA);
             Controls.Add(chartCapital_КМА);
             Name = "FormChart_KMA";
-            Text = "График";
+            Text = "График ";
             ((System.ComponentModel.ISupportInitialize)chartCapital_КМА).EndInit();
             ResumeLayout(false);
         }

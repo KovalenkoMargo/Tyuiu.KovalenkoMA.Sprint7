@@ -22,27 +22,88 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             owners = ownersList;
             CreateChart();
 
-            //buttonCloseChart_KMA.Click += buttonCloseChart_KMA_Click; 
         }
 
         private void CreateChart()
         {
+            // ПОЛНАЯ ОЧИСТКА
             chartCapital_КМА.Series.Clear();
+            chartCapital_КМА.Titles.Clear();
+            chartCapital_КМА.ChartAreas.Clear();
 
-            Series series = new Series("Капитал");
+            // СОЗДАЕМ НОВЫЙ ChartArea с настройками
+            ChartArea area = new ChartArea("MainArea");
+
+            // Настройка оси X (категорийная)
+            area.AxisX.IsMarginVisible = true;
+            area.AxisX.LabelStyle.Interval = 1;
+            area.AxisX.LabelStyle.Angle = -45;
+            area.AxisX.LabelStyle.Font = new Font("Arial", 9);
+            area.AxisX.Title = "Владельцы";
+            area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+
+            // Настройка оси Y (числовая)
+            area.AxisY.LabelStyle.Format = "C0";
+            area.AxisY.Title = "Капитал (руб.)";
+            area.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+            area.AxisY.LabelStyle.Font = new Font("Arial", 9);
+
+            chartCapital_КМА.ChartAreas.Add(area);
+
+            // СОЗДАЕМ СЕРИЮ
+            Series series = new Series("Капитал владельцев");
             series.ChartType = SeriesChartType.Column;
-            series.Color = Color.Blue;
+            series.ChartArea = "MainArea";
+            series.BorderWidth = 2;
+            series.IsValueShownAsLabel = true;
+            series.LabelFormat = "C0";
+            series.Font = new Font("Arial", 9, FontStyle.Bold);
 
-            int count = Math.Min(owners.Length, 10);
-            for (int i = 0; i < count; i++)
+            // ДОБАВЛЯЕМ ДАННЫЕ С ЦВЕТАМИ
+            for (int i = 0; i < owners.Length; i++)
             {
-                series.Points.AddXY(owners[i].FullName, (double)owners[i].Capital);
+                // Используем индексы для оси X
+                int pointIndex = series.Points.AddXY(i, (double)owners[i].Capital);
+
+                // Создаем короткое имя для метки
+                string shortName = owners[i].FullName;
+                if (shortName.Length > 10)
+                    shortName = shortName.Substring(0, 8) + "...";
+
+                // Устанавливаем метку оси X
+                series.Points[pointIndex].AxisLabel = shortName;
+
+                // Устанавливаем цвет столбца
+                series.Points[pointIndex].Color = GetColorForValue((double)owners[i].Capital);
+
+                // Добавляем всплывающую подсказку (ToolTip)
+                series.Points[pointIndex].ToolTip = $"{owners[i].FullName}\nКапитал: {owners[i].Capital:C0}\nАдрес: {owners[i].Address}";
             }
 
             chartCapital_КМА.Series.Add(series);
-            chartCapital_КМА.Titles.Add("Капитал владельцев магазинов");
-            //chartCapital_KMA.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
-            //chartCapital_KMA.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
+
+            // ДОБАВЛЯЕМ ЗАГОЛОВОК
+            Title title = new Title($"Капитал владельцев магазинов (всего: {owners.Length})");
+            title.Font = new Font("Arial", 14, FontStyle.Bold);
+            title.ForeColor = Color.DarkBlue;
+            chartCapital_КМА.Titles.Add(title);
+
+            // ВКЛЮЧАЕМ ЛЕГЕНДУ
+            chartCapital_КМА.Legends.Clear();
+            Legend legend = new Legend("CapitalLegend");
+            legend.Font = new Font("Arial", 9);
+            legend.Docking = Docking.Bottom;
+            chartCapital_КМА.Legends.Add(legend);
+        }
+
+        // Метод для цветов в зависимости от значения
+        private Color GetColorForValue(double value)
+        {
+            if (value > 2500000) return Color.DarkGreen;
+            if (value > 1500000) return Color.Green;
+            if (value > 1000000) return Color.LightGreen;
+            if (value > 500000) return Color.Orange;
+            return Color.OrangeRed;
         }
 
         private void buttonCloseChart_KMA_Click(object sender, EventArgs e)

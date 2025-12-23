@@ -43,6 +43,7 @@
             buttonCloseAbout_KMA.TabIndex = 0;
             buttonCloseAbout_KMA.Text = "Закрыть";
             buttonCloseAbout_KMA.UseVisualStyleBackColor = true;
+            buttonCloseAbout_KMA.Click += buttonCloseAbout_KMA_Click;
             // 
             // pictureBoxPhoto_KMA
             // 

@@ -6,17 +6,18 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
     {
         public class Owner
         {
-            public int Id { get; set; }
-            public string FullName { get; set; }
-            public string Address { get; set; }
-            public string Phone { get; set; }
-            public decimal Capital { get; set; }
+            public int Id { get; set; } = 0;
+            public string FullName { get; set; } = string.Empty;    // ← Инициализируем
+            public string Address { get; set; } = string.Empty;     // ← Инициализируем
+            public string Phone { get; set; } = string.Empty;       // ← Инициализируем
+            public decimal Capital { get; set; } = 0;
 
             public override string ToString()
             {
                 return $"{Id},{FullName},{Address},{Phone},{Capital}";
             }
         }
+
 
         public Owner[] LoadFromFile(string filePath)
         {
