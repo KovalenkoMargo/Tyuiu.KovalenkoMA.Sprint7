@@ -50,7 +50,7 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
             // Добавляем на форму
             this.Controls.Add(labelSearchField_KMA);
-            this.Controls.Add(comboBoxSearchField_KMA);
+            this.Controls.Add(comboBoxSearchField_KMA); 
         }
 
         private void LoadDataFromFile()

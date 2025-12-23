@@ -22,7 +22,7 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             owners = ownersList;
             CreateChart();
 
-            //buttonCloseChart_KMA.Click += buttonCloseChart_KMA_Click;
+            //buttonCloseChart_KMA.Click += buttonCloseChart_KMA_Click; 
         }
 
         private void CreateChart()

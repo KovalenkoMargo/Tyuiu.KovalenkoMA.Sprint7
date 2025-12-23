@@ -38,7 +38,7 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
    - Нажмите 'График' для визуализации данных
 
 6. Сохранение:
-   - Все изменения сохраняются в исходный файл
+   - Все изменения сохраняются в исходный файл 
    - Для принудительного сохранения нажмите 'Сохранить'";
         }
         private void buttonCloseManal_KMA_Click(object sender, EventArgs e)
