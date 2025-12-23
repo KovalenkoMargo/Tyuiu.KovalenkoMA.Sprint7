@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace Tyuiu.KovalenkoMA.Sprint7.V2
 {
-    public partial class FormAbout_КМА : Form
+    public partial class FormAbout_KMA : Form
     {
-        public FormAbout_КМА()
+        public FormAbout_KMA()
         {
             InitializeComponent();
         }
-        private void buttonOK_КМА_Click(object sender, EventArgs e)
+        private void buttonCloseAbout_KMA_Click(object sender, EventArgs e)
         {
             this.Close();
         }
