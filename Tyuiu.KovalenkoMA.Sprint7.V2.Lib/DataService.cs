@@ -7,9 +7,9 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
         public class Owner
         {
             public int Id { get; set; } = 0;
-            public string FullName { get; set; } = string.Empty;    // ← Инициализируем
-            public string Address { get; set; } = string.Empty;     // ← Инициализируем
-            public string Phone { get; set; } = string.Empty;       // ← Инициализируем
+            public string FullName { get; set; } = string.Empty;  
+            public string Address { get; set; } = string.Empty;     
+            public string Phone { get; set; } = string.Empty;     
             public decimal Capital { get; set; } = 0;
 
             public override string ToString()
@@ -255,5 +255,3 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2.Lib
         }
     }
 }
-
-    

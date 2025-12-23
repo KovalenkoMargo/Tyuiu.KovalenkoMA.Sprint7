@@ -26,15 +26,12 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void CreateChart()
         {
-            // ПОЛНАЯ ОЧИСТКА
             chartCapital_КМА.Series.Clear();
             chartCapital_КМА.Titles.Clear();
             chartCapital_КМА.ChartAreas.Clear();
 
-            // СОЗДАЕМ НОВЫЙ ChartArea с настройками
             ChartArea area = new ChartArea("MainArea");
 
-            // Настройка оси X (категорийная)
             area.AxisX.IsMarginVisible = true;
             area.AxisX.LabelStyle.Interval = 1;
             area.AxisX.LabelStyle.Angle = -45;
@@ -42,7 +39,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             area.AxisX.Title = "Владельцы";
             area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
 
-            // Настройка оси Y (числовая)
             area.AxisY.LabelStyle.Format = "C0";
             area.AxisY.Title = "Капитал (руб.)";
             area.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
@@ -50,7 +46,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
             chartCapital_КМА.ChartAreas.Add(area);
 
-            // СОЗДАЕМ СЕРИЮ
             Series series = new Series("Капитал владельцев");
             series.ChartType = SeriesChartType.Column;
             series.ChartArea = "MainArea";
@@ -59,36 +54,28 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             series.LabelFormat = "C0";
             series.Font = new Font("Arial", 9, FontStyle.Bold);
 
-            // ДОБАВЛЯЕМ ДАННЫЕ С ЦВЕТАМИ
             for (int i = 0; i < owners.Length; i++)
             {
-                // Используем индексы для оси X
                 int pointIndex = series.Points.AddXY(i, (double)owners[i].Capital);
 
-                // Создаем короткое имя для метки
                 string shortName = owners[i].FullName;
                 if (shortName.Length > 10)
                     shortName = shortName.Substring(0, 8) + "...";
 
-                // Устанавливаем метку оси X
                 series.Points[pointIndex].AxisLabel = shortName;
 
-                // Устанавливаем цвет столбца
                 series.Points[pointIndex].Color = GetColorForValue((double)owners[i].Capital);
 
-                // Добавляем всплывающую подсказку (ToolTip)
                 series.Points[pointIndex].ToolTip = $"{owners[i].FullName}\nКапитал: {owners[i].Capital:C0}\nАдрес: {owners[i].Address}";
             }
 
             chartCapital_КМА.Series.Add(series);
 
-            // ДОБАВЛЯЕМ ЗАГОЛОВОК
             Title title = new Title($"Капитал владельцев магазинов (всего: {owners.Length})");
             title.Font = new Font("Arial", 14, FontStyle.Bold);
             title.ForeColor = Color.DarkBlue;
             chartCapital_КМА.Titles.Add(title);
 
-            // ВКЛЮЧАЕМ ЛЕГЕНДУ
             chartCapital_КМА.Legends.Clear();
             Legend legend = new Legend("CapitalLegend");
             legend.Font = new Font("Arial", 9);
@@ -96,7 +83,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             chartCapital_КМА.Legends.Add(legend);
         }
 
-        // Метод для цветов в зависимости от значения
         private Color GetColorForValue(double value)
         {
             if (value > 2500000) return Color.DarkGreen;

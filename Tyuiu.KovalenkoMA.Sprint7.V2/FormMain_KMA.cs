@@ -47,7 +47,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
                 if (owners.Length == 0)
                 {
-                    // Создаем тестовые данные, если файл пустой
                     owners = CreateSampleData();
                     statusLabelInfo_KMA.Text = "Загружено 0 записей. Созданы тестовые данные.";
                 }
@@ -57,20 +56,18 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                 }
 
                 DisplayData(owners);
-                UpdateStatistics(); // ← ОБЯЗАТЕЛЬНО ВЫЗЫВАЙ ЗДЕСЬ!
+                UpdateStatistics(); 
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Создаем тестовые данные при ошибке
                 owners = CreateSampleData();
                 DisplayData(owners);
                 UpdateStatistics();
             }
         }
 
-        // Добавь метод для создания тестовых данных:
         private DataService.Owner[] CreateSampleData()
         {
             return new DataService.Owner[]
@@ -127,7 +124,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void toolStripButtonSearch_KMA_Click(object sender, EventArgs e)
         {
-            // Просим ввести текст для поиска
             string searchTerm = Microsoft.VisualBasic.Interaction.InputBox(
                 "Введите ФИО для поиска:",
                 "Быстрый поиск по ФИО",
@@ -174,7 +170,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                 return;
             }
 
-            // Определяем поле для поиска из ComboBox
             string searchField = "FullName";
 
             switch (comboBoxSearchField_KMA.SelectedIndex)
@@ -190,13 +185,11 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             var searchResults = ds.SearchOwners(owners, searchTerm, searchField);
             DisplayData(searchResults);
 
-            // Обновляем статистику для найденных записей
             UpdateStatisticsForResults(searchResults);
 
             statusLabelInfo_KMA.Text = $"Найдено: {searchResults.Length} записей (поиск по: {comboBoxSearchField_KMA.Text})";
         }
 
-        // Добавь этот метод для обновления статистики поиска:
         private void UpdateStatisticsForResults(DataService.Owner[] results)
         {
             textBoxTotalCount_KMA.Text = ds.GetCount(results).ToString();
@@ -217,11 +210,9 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
         {
             textBoxSearch_KMA.Clear();
 
-            // Показываем ВСЕ данные
             DisplayData(owners);
 
-            // Обновляем статистику для ВСЕХ данных
-            UpdateStatistics(); // Это метод должен обновлять статистику из массива owners
+            UpdateStatistics(); 
 
             statusLabelInfo_KMA.Text = $"Загружено: {owners.Length} записей";
             comboBoxSearchField_KMA.SelectedIndex = 0;
@@ -320,7 +311,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void DataGridViewMain_KMA_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
-            // Проверяем, что изменение не в заголовке и есть данные
             if (e.RowIndex >= 0 && e.RowIndex < owners.Length && e.ColumnIndex >= 0)
             {
                 try
@@ -328,11 +318,9 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                     var row = dataGridViewMain_KMA.Rows[e.RowIndex];
                     var owner = owners[e.RowIndex];
 
-                    // Обновляем объект Owner в зависимости от того, какой столбец изменился
                     switch (e.ColumnIndex)
                     {
                         case 0: // ID - не меняем
-                                // ID нельзя менять, восстанавливаем старое значение
                             row.Cells[0].Value = owner.Id;
                             MessageBox.Show("ID нельзя изменять!", "Предупреждение",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -357,7 +345,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                             }
                             else
                             {
-                                // Если ввели не число, восстанавливаем старое значение
                                 row.Cells[4].Value = owner.Capital;
                                 MessageBox.Show("Капитал должен быть числом!", "Ошибка",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -365,13 +352,10 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                             break;
                     }
 
-                    // Обновляем статистику
                     UpdateStatistics();
 
-                    // Показываем сообщение в статус-баре
                     statusLabelInfo_KMA.Text = $"Запись #{owner.Id} обновлена";
 
-                    // Автоматически сохраняем изменения
                     SaveChangesAuto();
                 }
                 catch (Exception ex)
@@ -391,7 +375,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
                 if (!success)
                 {
-                    // Не показываем ошибку пользователю при автосохранении, только в статус-баре
                     statusLabelInfo_KMA.Text = "Не удалось автосохранить";
                 }
             }
@@ -404,10 +387,8 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void InitializeDataGridViewColumns()
         {
-            // Очищаем старые столбцы
             dataGridViewMain_KMA.Columns.Clear();
 
-            // Создаем столбцы
             DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
             colId.Name = "Id";
             colId.HeaderText = "ID";
@@ -436,19 +417,16 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             colCapital.DefaultCellStyle.Format = "N2";
             colCapital.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            // Добавляем столбцы
             dataGridViewMain_KMA.Columns.AddRange(new DataGridViewColumn[] {
         colId, colFullName, colAddress, colPhone, colCapital
     });
 
-            // Настройки таблицы
             dataGridViewMain_KMA.AllowUserToAddRows = false;
             dataGridViewMain_KMA.AllowUserToDeleteRows = false;
-            dataGridViewMain_KMA.ReadOnly = false; // Разрешаем редактирование
+            dataGridViewMain_KMA.ReadOnly = false; 
             dataGridViewMain_KMA.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewMain_KMA.MultiSelect = false;
 
-            // Подписываемся на событие изменения ячейки
             dataGridViewMain_KMA.CellValueChanged += DataGridViewMain_KMA_CellValueChanged;
         }
 
@@ -456,7 +434,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void menuItemExit_KMA_Click(object sender, EventArgs e)
         {
-            // Спрашиваем подтверждение
             DialogResult result = MessageBox.Show(
                 "Вы уверены, что хотите выйти?",
                 "Подтверждение выхода",
@@ -466,7 +443,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
             if (result == DialogResult.Yes)
             {
-                // Сохраняем данные перед выходом (опционально)
                 string errorMessage = "";
                 bool saved = ds.SaveToFile(currentFilePath, owners, out errorMessage);
 
@@ -476,7 +452,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                // Закрываем приложение
                 Application.Exit();
             }
         }
@@ -485,11 +460,9 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
         {
             try
             {
-                // Парсим значения из TextBox с поддержкой разных форматов
                 decimal minCapital = ParseDecimalFromTextBox(textBoxMinFilter_KMA.Text);
                 decimal maxCapital = ParseDecimalFromTextBox(textBoxMaxFilter_KMA.Text);
 
-                // Проверяем, что оба значения валидны
                 if (minCapital < 0 || maxCapital < 0)
                 {
                     MessageBox.Show("Значения капитала не могут быть отрицательными!",
@@ -511,16 +484,12 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                     return;
                 }
 
-                // Используем метод из DataService
                 var filteredOwners = ds.FilterByCapitalRange(owners, minCapital, maxCapital);
 
-                // Отображаем отфильтрованные данные
                 DisplayData(filteredOwners);
 
-                // Обновляем статистику для отфильтрованных данных
                 UpdateStatisticsForFiltered(filteredOwners);
 
-                // Показываем информацию в Label
                 labelFilterResult_KMA.Text =
                     $"Найдено: {filteredOwners.Length} записей\n" +
                     $"Капитал: от {minCapital:N0} до {maxCapital:N0} руб.";
@@ -548,21 +517,16 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void buttonClearFilter_KMA_Click(object sender, EventArgs e)
         {
-            // Сбрасываем значения фильтра
     textBoxMinFilter_KMA.Text = "0";
             textBoxMaxFilter_KMA.Text = "1000000";
 
-            // Сбрасываем подсветку
             textBoxMinFilter_KMA.BackColor = SystemColors.Window;
             textBoxMaxFilter_KMA.BackColor = SystemColors.Window;
 
-            // Показываем все данные
             DisplayData(owners);
 
-            // Обновляем общую статистику
             UpdateStatistics();
 
-            // Сбрасываем Label
             labelFilterResult_KMA.Text = "Фильтр не применен";
             labelFilterResult_KMA.ForeColor = Color.Gray;
 
@@ -570,7 +534,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
         }
 
 
-        // Метод для обновления статистики отфильтрованных данных
         private void UpdateStatisticsForFiltered(DataService.Owner[] filteredOwners)
         {
             if (filteredOwners.Length > 0)
@@ -596,7 +559,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             if (string.IsNullOrWhiteSpace(text))
                 return 0;
 
-            // Убираем пробелы, точки как разделители тысяч, заменяем запятые на точки
             string cleaned = text.Trim()
                                 .Replace(" ", "")
                                 .Replace(".", "")
@@ -605,11 +567,10 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             return decimal.Parse(cleaned, CultureInfo.InvariantCulture);
         }
 
-        // Метод проверки валидности decimal
         private bool IsValidDecimal(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
-                return true; // Пустая строка = 0
+                return true; 
 
             try
             {
@@ -622,7 +583,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             }
         }
 
-        // Валидация при изменении текста
         private void textBoxMinFilter_KMA_TextChanged(object sender, EventArgs e)
         {
             ValidateTextBox(textBoxMinFilter_KMA);
@@ -633,7 +593,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             ValidateTextBox(textBoxMaxFilter_KMA);
         }
 
-        // Метод валидации TextBox
         private void ValidateTextBox(TextBox textBox)
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))

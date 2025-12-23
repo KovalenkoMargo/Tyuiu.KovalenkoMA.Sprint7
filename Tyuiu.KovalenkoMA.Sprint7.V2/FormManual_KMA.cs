@@ -21,15 +21,12 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
         private void SetupManualContent()
         {
-            // Настраиваем RichTextBox
             richTextBoxManual_KMA.Font = new Font("Segoe UI", 10);
             richTextBoxManual_KMA.BackColor = Color.White;
             richTextBoxManual_KMA.BorderStyle = BorderStyle.None;
 
-            // Очищаем и устанавливаем содержимое
             richTextBoxManual_KMA.Clear();
 
-            // ЗАГОЛОВОК
             richTextBoxManual_KMA.SelectionFont = new Font("Segoe UI", 16, FontStyle.Bold);
             richTextBoxManual_KMA.SelectionColor = Color.DarkBlue;
             richTextBoxManual_KMA.SelectionAlignment = HorizontalAlignment.Center;
@@ -40,7 +37,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             richTextBoxManual_KMA.AppendText("Программа \"Сеть магазинов\"\n");
             richTextBoxManual_KMA.AppendText("Версия 1.0 | Спринт 7 | Вариант 2\n\n");
 
-            // РАЗДЕЛЫ
             AddSection("1. НАЗНАЧЕНИЕ ПРОГРАММЫ",
                 "Программа предназначена для управления данными о владельцах магазинов.\n" +
                 "\nОсновные возможности:\n" +
@@ -135,7 +131,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
                 "• Руководство - это окно\n" +
                 "• Выход - завершение работы\n");
 
-            // ПОДВАЛ
             richTextBoxManual_KMA.AppendText("\n");
             richTextBoxManual_KMA.SelectionFont = new Font("Segoe UI", 9, FontStyle.Italic);
             richTextBoxManual_KMA.SelectionColor = Color.DarkGray;
@@ -144,19 +139,16 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             richTextBoxManual_KMA.AppendText("© 2025 | Разработчик: Коваленко М.А.\n");
             richTextBoxManual_KMA.AppendText("Тюменский индустриальный университет\n");
 
-            // Прокручиваем в начало
             richTextBoxManual_KMA.SelectionStart = 0;
         }
 
         private void AddSection(string title, string content)
         {
-            // Заголовок раздела
             richTextBoxManual_KMA.SelectionFont = new Font("Segoe UI", 12, FontStyle.Bold);
             richTextBoxManual_KMA.SelectionColor = Color.DarkGreen;
             richTextBoxManual_KMA.SelectionAlignment = HorizontalAlignment.Left;
             richTextBoxManual_KMA.AppendText(title + "\n");
 
-            // Содержание
             richTextBoxManual_KMA.SelectionFont = new Font("Segoe UI", 10);
             richTextBoxManual_KMA.SelectionColor = Color.Black;
             richTextBoxManual_KMA.AppendText(content + "\n");
