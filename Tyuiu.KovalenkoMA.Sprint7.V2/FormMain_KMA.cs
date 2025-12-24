@@ -398,12 +398,12 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
             DataGridViewTextBoxColumn colFullName = new DataGridViewTextBoxColumn();
             colFullName.Name = "FullName";
             colFullName.HeaderText = "ФИО владельца";
-            colFullName.Width = 200;
+            colFullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridViewTextBoxColumn colAddress = new DataGridViewTextBoxColumn();
             colAddress.Name = "Address";
             colAddress.HeaderText = "Адрес";
-            colAddress.Width = 150;
+            colAddress.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridViewTextBoxColumn colPhone = new DataGridViewTextBoxColumn();
             colPhone.Name = "Phone";

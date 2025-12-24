@@ -34,7 +34,6 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
 
             area.AxisX.IsMarginVisible = true;
             area.AxisX.LabelStyle.Interval = 1;
-            area.AxisX.LabelStyle.Angle = -45;
             area.AxisX.LabelStyle.Font = new Font("Arial", 9);
             area.AxisX.Title = "Владельцы";
             area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
@@ -98,3 +97,4 @@ namespace Tyuiu.KovalenkoMA.Sprint7.V2
         }
     }
 }
+
